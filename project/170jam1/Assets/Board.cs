@@ -23,7 +23,7 @@ public class Board<T>
     /// </summary>
     /// // the "seealso" tag does not appear to work in VS lol
     /// <remarks>
-    /// <b>See also</b><br/><br/> 
+    /// See also:<br/> 
     /// - <see href="https://learn.microsoft.com/en-us/dotnet/api/system.func-3?view=net-7.0"><c>Func~3</c></see><br/>
     /// - <see href="https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions"><c>Lambda expressions</c></see>
     /// </remarks>
