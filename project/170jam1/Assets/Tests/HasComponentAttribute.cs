@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// (incomplete) Attribute which can be applied to fields and properties to tell the Tests class to check whether required components are present.
 /// </summary>
-[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 public class HasComponentsAttribute : Attribute
 {
     public Type[] RequiredComponents { get; private set; }

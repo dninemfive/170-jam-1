@@ -10,14 +10,9 @@ using UnityEngine;
 /// </summary>
 public class Tileset
 {
-    private List<List<Material>> _tileTextures;
+    private Board<Material> _tileTextures;
     public Material this[int x, int y]
     {
-        get
-        {
-            if (x is < 0 or >= GameManager.NUM_TILES_X) throw new ArgumentOutOfRangeException(nameof(x));
-            if (y is < 0 or >= GameManager.NUM_TILES_Y) throw new ArgumentOutOfRangeException(nameof(y));
-            return _tileTextures[x][y];
-        }
+        get => _tileTextures[x, y];
     }
 }
