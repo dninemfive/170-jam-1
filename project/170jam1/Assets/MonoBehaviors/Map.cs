@@ -24,7 +24,6 @@ public class Map : MonoBehaviour
             return prefab;
         });
     }
-
     // Update is called once per frame
     void Update()
     {

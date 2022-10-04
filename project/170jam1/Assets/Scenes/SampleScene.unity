@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63333384fea823b46a527cd62cdb3837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Map: {fileID: 2735646770551654245, guid: f464bd150227e0b45974194903f3e167, type: 3}
-  Tile: {fileID: 665826614225161979, guid: b1fbd7c44915b4b4abecd96965e75895, type: 3}
+  _map: {fileID: 2735646770551654245, guid: f464bd150227e0b45974194903f3e167, type: 3}
+  _tile: {fileID: 665826614225161979, guid: b1fbd7c44915b4b4abecd96965e75895, type: 3}
 --- !u!114 &609668105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   Maps: []
   Prefabs: {fileID: 609668104}
+  DebugCube: {fileID: 2316091122255721664, guid: 8c4e1814315339543b7905614d1d7e90, type: 3}
 --- !u!4 &609668106
 Transform:
   m_ObjectHideFlags: 0
