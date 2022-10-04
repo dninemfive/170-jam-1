@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,14 +16,30 @@ public class GameManager : MonoBehaviour
     /// The number of tiles in the y (vertical) direction.
     /// </summary>
     public const int NUM_TILES_Y = 9;
+    /// <summary>
+    /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
+    /// </summary>
+    public const int NUM_MAPS = 7;
     [HasComponent(typeof(Player))]
     public GameObject Player;
     [HaveComponent(typeof(Map))]
     public List<GameObject> Maps;
+    public Prefabs Prefabs;
+    public static GameObject Root { get; private set; } = null;
+    private static GameManager _instance { get; set; } = null;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance is null) _instance = Root.GetComponent<GameManager>();
+            return _instance;
+        }        
+    }
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (Root is not null) throw new Exception("Attempted to initialize a new GameManager but one already existed.");
+        Root = gameObject;
     }
 
     // Update is called once per frame
