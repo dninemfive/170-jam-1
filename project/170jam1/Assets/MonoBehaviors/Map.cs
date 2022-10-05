@@ -15,12 +15,13 @@ public class Map : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(transform.position.z);
         Tiles = new(delegate(int x, int y)
         {
             GameObject prefab = Instantiate(Prefabs.Tile);
-            if(x % 2 == y % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
+            if (x % 2 == y % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
             // TODO: decide whether to rename all references to use z or to write down that y = z somewhere
-            prefab.transform.position = new(x, transform.position.z, y);
+            prefab.transform.position = new(x, transform.position.y, y);
             return prefab;
         });
     }

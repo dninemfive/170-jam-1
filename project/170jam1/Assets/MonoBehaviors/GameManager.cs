@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// C# doesn't like naming private variables with the _camelCase notation
+#pragma warning disable IDE1006
 /// <summary>
 /// Root component which holds and manages all other components.
 /// </summary>
@@ -25,7 +27,6 @@ public class GameManager : MonoBehaviour
     [HaveComponent(typeof(Map))]
     public List<GameObject> Maps;
     public Prefabs Prefabs;
-    public GameObject DebugCube;
     public static GameObject Root { get; private set; } = null;
     private static GameManager _instance { get; set; } = null;
     public static GameManager Instance
@@ -55,7 +56,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log($"Generating new map at (0, {-i}, 0)");
             Maps.Add(Instantiate(Prefabs.Map, new Vector3(0, -i, 0), Quaternion.identity));
-            Instantiate(DebugCube, new Vector3(0, -i, 0), Quaternion.identity);
         }
     }
     /// <summary>
