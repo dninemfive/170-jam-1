@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         if (mapIndex is < 0 or >= NUM_MAPS) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{NUM_MAPS})!");
         _mapIndex = mapIndex;
         Camera.transform.position = CurrentMap.CameraPosition;
+        for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex >= i;
     }
     public void GoToNextMap() => GoToMap((++_mapIndex) % NUM_MAPS);
     public void GoToPreviousMap() => GoToMap((++_mapIndex) % NUM_MAPS);
@@ -67,7 +68,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ElapsedTime += Time.deltaTime;
-        if (ElapsedTime > 5) Maps.First().Visible = false;
+        if(ElapsedTime > 1)
+        {
+            ElapsedTime = 0;
+            GoToNextMap();
+        }
     }
     public void GenerateMaps()
     {

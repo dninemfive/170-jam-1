@@ -19,12 +19,19 @@ public class Map : MonoBehaviour
         set 
         {
             _visible = value;
-            foreach (GameObject go in Tiles.AllItems) go.GetComponent<MeshRenderer>().enabled = _visible;
+            if (Tiles is null) Debug.Log("ti4jae;t");
+            foreach (GameObject go in Tiles.AllItems)
+            {
+                MeshRenderer mr = go.GetComponent<MeshRenderer>();
+                if (mr is null) Debug.Log("null!");
+                else mr.enabled = _visible;
+            }
         }
     }
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("huh???");
         Debug.Log(transform.position.z);
         Tiles = new(delegate(int x, int z)
         {
