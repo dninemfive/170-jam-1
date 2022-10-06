@@ -30,10 +30,10 @@ public class Board<T>
     /// <param name="generator">A function (lambda or otherwise) which takes a pair of coords as an input parameter and outputs the corresponding tile.</param>
     public Board(Func<int, int, T> generator)
     {
-        _board = new T[GameManager.NUM_TILES_X, GameManager.NUM_TILES_Y];
-        foreach((int x, int y) in GameManager.EnumerateAllCoordinates)
+        _board = new T[GameManager.NUM_TILES_X, GameManager.NUM_TILES_Z];
+        foreach((int x, int z) in GameManager.EnumerateAllCoordinates)
         {
-            _board[x, y] = generator(x, y);
+            _board[x, z] = generator(x, z);
         }
     }
     /// <summary>
@@ -42,13 +42,13 @@ public class Board<T>
     /// <param name="x">The x coordinate of the tile to retrieve.</param>
     /// <param name="y">The y coordinate of the tile to retrieve.</param>
     /// <returns>The tile at (x, y).</returns>
-    public T this[int x, int y]
+    public T this[int x, int z]
     {
         get
         {
             if (x is < 0 or >= GameManager.NUM_TILES_X) throw new ArgumentOutOfRangeException(nameof(x));
-            if (y is < 0 or >= GameManager.NUM_TILES_Y) throw new ArgumentOutOfRangeException(nameof(y));
-            return _board[x, y];
+            if (z is < 0 or >= GameManager.NUM_TILES_Z) throw new ArgumentOutOfRangeException(nameof(z));
+            return _board[x, z];
         }
     }
 }

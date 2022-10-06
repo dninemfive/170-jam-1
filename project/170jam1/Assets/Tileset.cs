@@ -11,8 +11,8 @@ using UnityEngine;
 public class Tileset
 {
     private Board<Material> _tileTextures;
-    public Material this[int x, int y]
+    public Material this[int x, int z]
     {
-        get => _tileTextures[x, y];
+        get => _tileTextures[x, z];
     }
 }

@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public const int NUM_TILES_X = 16;
     /// <summary>
-    /// The number of tiles in the y (vertical) direction.
+    /// The number of tiles in the z (vertical w/r/t the top-down view) direction.
     /// </summary>
-    public const int NUM_TILES_Y = 9;
+    public const int NUM_TILES_Z = 9;
+    /// <summary>
+    /// Distance of the camera above the map. Eventually, should be calculated from a desired proportion of the screen space.
+    /// </summary>
+    public const float CAMERA_DISTANCE = 10f;
     /// <summary>
     /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
     /// </summary>
@@ -61,12 +65,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Enumerates every possible coordinate on the board.
     /// </summary>
-    public static IEnumerable<(int x, int y)> EnumerateAllCoordinates
+    public static IEnumerable<(int x, int z)> EnumerateAllCoordinates
     {
         get
         {
             for (int i = 0; i < NUM_TILES_X; i++)
-                for (int j = 0; j < NUM_TILES_Y; j++)
+                for (int j = 0; j < NUM_TILES_Z; j++)
                     yield return (i, j);
         }
     }

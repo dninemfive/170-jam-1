@@ -16,12 +16,11 @@ public class Map : MonoBehaviour
     void Start()
     {
         Debug.Log(transform.position.z);
-        Tiles = new(delegate(int x, int y)
+        Tiles = new(delegate(int x, int z)
         {
             GameObject prefab = Instantiate(Prefabs.Tile);
-            if (x % 2 == y % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
-            // TODO: decide whether to rename all references to use z or to write down that y = z somewhere
-            prefab.transform.position = new(x, transform.position.y, y);
+            if (x % 2 == z % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
+            prefab.transform.position = new(x, transform.position.y, z);
             return prefab;
         });
     }
@@ -29,5 +28,20 @@ public class Map : MonoBehaviour
     void Update()
     {
         
+    }
+    /// <summary>
+    /// The desired position of the camera above the map.
+    /// </summary>
+    public Vector3 CameraPosition
+    {
+        get
+        {
+            // center the camera in the x plane
+            float x = transform.position.x + GameManager.NUM_TILES_X / 2f + 0.5f;
+            float y = transform.position.y + GameManager.CAMERA_DISTANCE;
+            // center the camera in the y plane
+            float z = transform.position.z + GameManager.NUM_TILES_Z / 2f + 0.5f;
+            return new(x, y, z);
+        }
     }
 }
