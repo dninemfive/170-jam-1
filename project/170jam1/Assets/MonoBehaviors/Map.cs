@@ -12,6 +12,16 @@ public class Map : MonoBehaviour
     [HaveComponent(typeof(Enemy))]
     List<GameObject> Enemies;
     public Board<GameObject> Tiles { get; private set; }
+    private bool _visible = true;
+    public bool Visible
+    {
+        get => _visible;
+        set 
+        {
+            _visible = value;
+            foreach (GameObject go in Tiles.AllItems) go.GetComponent<MeshRenderer>().enabled = _visible;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {

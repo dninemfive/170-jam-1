@@ -18,6 +18,13 @@ public class Board<T>
     /// The internal 2D array.
     /// </summary>
     private T[,] _board;
+    public IEnumerable<T> AllItems
+    {
+        get
+        {
+            foreach (T t in _board) yield return t;
+        }
+    }
     /// <summary>
     /// Generates a new board of the specified type, using the generator which is passed into it. This ensures there's at least an attempt to define each cell.
     /// </summary>

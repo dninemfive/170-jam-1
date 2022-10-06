@@ -62,11 +62,12 @@ public class GameManager : MonoBehaviour
         GenerateMaps();
         GoToMap(0);
     }
-
+    public float ElapsedTime { get; private set; } = 0;
     // Update is called once per frame
     void Update()
     {
-        
+        ElapsedTime += Time.deltaTime;
+        if (ElapsedTime > 5) Maps.First().Visible = false;
     }
     public void GenerateMaps()
     {
