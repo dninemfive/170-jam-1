@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // C# doesn't like naming private variables with the _camelCase notation
@@ -26,10 +27,22 @@ public class GameManager : MonoBehaviour
     /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
     /// </summary>
     public const int NUM_MAPS = 5;
+    public GameObject Camera;
     [HasComponent(typeof(Player))]
     public GameObject Player;
     [HaveComponent(typeof(Map))]
-    public List<GameObject> Maps;
+    private List<Map> _maps { get; set; } = new();
+    public IEnumerable<Map> Maps => _maps.AsEnumerable();
+    private int _mapIndex { get; set; }
+    public Map CurrentMap => _maps[_mapIndex];
+    public void GoToMap(int mapIndex)
+    {
+        if (mapIndex is < 0 or >= NUM_MAPS) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{NUM_MAPS})!");
+        _mapIndex = mapIndex;
+        Camera.transform.position = CurrentMap.CameraPosition;
+    }
+    public void GoToNextMap() => GoToMap((++_mapIndex) % NUM_MAPS);
+    public void GoToPreviousMap() => GoToMap((++_mapIndex) % NUM_MAPS);
     public Prefabs Prefabs;
     public static GameObject Root { get; private set; } = null;
     private static GameManager _instance { get; set; } = null;
@@ -47,6 +60,7 @@ public class GameManager : MonoBehaviour
         if (Root is not null) throw new Exception("Attempted to initialize a new GameManager but one already existed.");
         Root = gameObject;
         GenerateMaps();
+        GoToMap(0);
     }
 
     // Update is called once per frame
@@ -59,7 +73,8 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < NUM_MAPS; i++)
         {
             Debug.Log($"Generating new map at (0, {-i}, 0)");
-            Maps.Add(Instantiate(Prefabs.Map, new Vector3(0, -i, 0), Quaternion.identity));
+            GameObject go = Instantiate(Prefabs.Map, new Vector3(0, -i, 0), Quaternion.identity);
+            _maps.Add(go.GetComponent<Map>());
         }
     }
     /// <summary>

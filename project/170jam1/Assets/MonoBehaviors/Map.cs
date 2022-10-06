@@ -37,10 +37,10 @@ public class Map : MonoBehaviour
         get
         {
             // center the camera in the x plane
-            float x = transform.position.x + GameManager.NUM_TILES_X / 2f + 0.5f;
+            float x = transform.position.x + GameManager.NUM_TILES_X / 2f;
             float y = transform.position.y + GameManager.CAMERA_DISTANCE;
             // center the camera in the y plane
-            float z = transform.position.z + GameManager.NUM_TILES_Z / 2f + 0.5f;
+            float z = transform.position.z + GameManager.NUM_TILES_Z / 2f - 0.5f;
             return new(x, y, z);
         }
     }
