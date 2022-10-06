@@ -167,10 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00be06b58ce374c428460cae805e6123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Camera: {fileID: 963194225}
   Player: {fileID: 0}
-  Maps: []
   Prefabs: {fileID: 609668104}
-  DebugCube: {fileID: 2316091122255721664, guid: 8c4e1814315339543b7905614d1d7e90, type: 3}
 --- !u!4 &609668106
 Transform:
   m_ObjectHideFlags: 0
