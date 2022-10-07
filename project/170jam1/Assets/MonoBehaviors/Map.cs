@@ -33,12 +33,10 @@ public class Map : MonoBehaviour
         set 
         {
             _visible = value;
-            if (Tiles is null) Debug.LogError($"Map at {transform.position} has an uninitialized Tiles object!");
             foreach (GameObject go in Tiles.AllItems)
             {
                 MeshRenderer mr = go.GetComponent<MeshRenderer>();
-                if (mr is null) Debug.LogError($"MeshRenderer for tile at {go.transform.position} is null!");
-                else mr.enabled = _visible;
+                mr.enabled = _visible;
             }
         }
     }
@@ -46,9 +44,9 @@ public class Map : MonoBehaviour
     /// Creates this map and initializes its Tiles; doing the latter causes the component GameObjects to be created.
     /// </summary>
     /// <remarks>Called before the first frame update.</remarks>
-    void Start()
+    void Awake()
     {
-        Debug.Log($"Map initializing at {transform.position}");
+        Debug.Log($"{this}: initializing");
         Tiles = new(delegate(int x, int z)
         {
             GameObject prefab = Instantiate(Prefabs.Tile);
@@ -57,11 +55,11 @@ public class Map : MonoBehaviour
             return prefab;
         });
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// The representation of this Map when printed.
+    /// </summary>
+    /// <returns>$"Map at {transform.position}"</returns>
+    public override string ToString() => $"Map at {transform.position}";
     /// <summary>
     /// The desired position of the camera above this map, namely centered on the XZ plane and <see cref="GameManager.CAMERA_DISTANCE"/> units above the map.
     /// </summary>
