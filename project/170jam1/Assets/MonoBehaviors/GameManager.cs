@@ -32,11 +32,13 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The camera which is a fixed distance from the current map.
     /// </summary>
-    public GameObject Camera;
+    [SerializeField]
+    private GameObject Camera;
     /// <summary>
     /// The GameObject representing the player.
     /// </summary>
-    public GameObject Player;
+    [SerializeField]
+    private GameObject Player;
     /// <summary>
     /// A list of Map components corresponding to the generated maps. Private because we don't want to mess with it after generation.
     /// </summary>
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// An object containing the prefabs to spawn in via scripts.
     /// </summary>
-    public Prefabs Prefabs;
+    public Prefabs Prefabs { get; private set; }
     /// <summary>
     /// The root GameObject, which holds the only valid instance of GameManager.
     /// </summary>
