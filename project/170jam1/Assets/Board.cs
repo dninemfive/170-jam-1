@@ -17,7 +17,7 @@ public class Board<T>
     /// <summary>
     /// The internal 2D array.
     /// </summary>
-    private T[,] _board;
+    private readonly T[,] _board;
     public IEnumerable<T> AllItems
     {
         get
@@ -47,8 +47,8 @@ public class Board<T>
     /// Gets a tile from the board.
     /// </summary>
     /// <param name="x">The x coordinate of the tile to retrieve.</param>
-    /// <param name="y">The y coordinate of the tile to retrieve.</param>
-    /// <returns>The tile at (x, y).</returns>
+    /// <param name="z">The z coordinate of the tile to retrieve.</param>
+    /// <returns>The tile at (x, z).</returns>
     public T this[int x, int z]
     {
         get
