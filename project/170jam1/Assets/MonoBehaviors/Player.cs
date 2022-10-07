@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [HasComponent(typeof(Weapon))]
     public GameObject Weapon;
     Vector3 Position, Velocity;
+
     // Start is called before the first frame update
     void Start()
     {
