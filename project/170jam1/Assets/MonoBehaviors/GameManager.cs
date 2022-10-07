@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
     /// </summary>
-    public const int NUM_MAPS = 5;
+    public const int NUM_MAPS = 4;
     /// <summary>
     /// The camera which is a fixed distance from the current map.
     /// </summary>
@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject Player;
+    [SerializeField]
+    private Texture2D[] MapTextures;
     /// <summary>
     /// A list of Map components corresponding to the generated maps. Private because we don't want to mess with it after generation.
     /// </summary>
