@@ -15,7 +15,6 @@ public class Map : MonoBehaviour
     /// <summary>
     /// A list of enemies on this map.
     /// </summary>
-    [HaveComponent(typeof(Enemy))]
     List<GameObject> Enemies;
     /// <summary>
     /// A <see cref="Board{GameObject}"/> holding the component tiles of this map.

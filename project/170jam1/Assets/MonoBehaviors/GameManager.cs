@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The GameObject representing the player.
     /// </summary>
-    [HasComponent(typeof(Player))]
     public GameObject Player;
     /// <summary>
     /// A list of Map components corresponding to the generated maps. Private because we don't want to mess with it after generation.
