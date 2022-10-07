@@ -33,12 +33,10 @@ public class Map : MonoBehaviour
         set 
         {
             _visible = value;
-            if (Tiles is null) Debug.LogError($"{this} has an uninitialized Tiles object!");
             foreach (GameObject go in Tiles.AllItems)
             {
                 MeshRenderer mr = go.GetComponent<MeshRenderer>();
-                if (mr is null) Debug.LogError($"MeshRenderer for tile at {go.transform.position} is null!");
-                else mr.enabled = _visible;
+                mr.enabled = _visible;
             }
         }
     }
@@ -56,8 +54,11 @@ public class Map : MonoBehaviour
             prefab.transform.position = new(x, transform.position.y, z);
             return prefab;
         });
-        Debug.Log($"{this}: `Tiles` is {(Tiles is null ? "" : "not ")} null.");
     }
+    /// <summary>
+    /// The representation of this Map when printed.
+    /// </summary>
+    /// <returns>$"Map at {transform.position}"</returns>
     public override string ToString() => $"Map at {transform.position}";
     /// <summary>
     /// The desired position of the camera above this map, namely centered on the XZ plane and <see cref="GameManager.CAMERA_DISTANCE"/> units above the map.
