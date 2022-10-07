@@ -310,7 +310,7 @@ MeshCollider:
   m_GameObject: {fileID: 841244511}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -409,6 +409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
+  rotateSpeed: 15
+  useMouse: 1
+  camera: {fileID: 963194227}
 --- !u!114 &841244519
 MonoBehaviour:
   m_ObjectHideFlags: 0
