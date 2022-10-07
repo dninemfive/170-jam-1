@@ -26,10 +26,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public const float CAMERA_DISTANCE = 10f;
     /// <summary>
-    /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
-    /// </summary>
-    public const int NUM_MAPS = 4;
-    /// <summary>
     /// The camera which is a fixed distance from the current map.
     /// </summary>
     [SerializeField]
@@ -39,12 +35,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject Player;
-    [SerializeField]
-    private Texture2D[] MapTextures;
     /// <summary>
     /// A list of Map components corresponding to the generated maps. Private because we don't want to mess with it after generation.
     /// </summary>
-    private List<Map> _maps { get; set; } = new();
+    private List<GameObject> _maps { get; set; } = new();
     /// <summary>
     /// The index of the current map. Private because this should only be changed via <see cref="GoToMap(int)"/>.
     /// </summary>
@@ -52,26 +46,26 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The map the player is currently on.
     /// </summary>
-    public Map CurrentMap => _maps[_mapIndex];
+    public Map CurrentMap => _maps[_mapIndex].GetComponent<Map>();
     /// <summary>
     /// Goes to a specified map. Moves the camera to follow it and hides the maps above it.
     /// </summary>
     /// <param name="mapIndex">The index of the map to go to.</param>
     public void GoToMap(int mapIndex)
     {
-        if (mapIndex is < 0 or >= NUM_MAPS) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{NUM_MAPS})!");
+        if (mapIndex < 0 || mapIndex >= _maps.Count) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{_maps.Count})!");
         _mapIndex = mapIndex;
         Camera.transform.position = CurrentMap.CameraPosition;
-        for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
+        for (int i = 0; i < _maps.Count; i++) _maps[i].GetComponent<Map>().Visible = _mapIndex <= i;
     }
     /// <summary>
     /// Goes to the next map. If it goes past the end, wraps back around to the first map.
     /// </summary>
-    public void GoToNextMap() => GoToMap((++_mapIndex) % NUM_MAPS);
+    public void GoToNextMap() => GoToMap((++_mapIndex) % _maps.Count);
     /// <summary>
     /// Goes to the previous map. If it goes past the end, wraps around to the last map.
     /// </summary>
-    public void GoToPreviousMap() => GoToMap((--_mapIndex) % NUM_MAPS);
+    public void GoToPreviousMap() => GoToMap((--_mapIndex) % _maps.Count);
     /// <summary>
     /// An object containing the prefabs to spawn in via scripts.
     /// </summary>
@@ -99,7 +93,7 @@ public class GameManager : MonoBehaviour
     /// Essentially, starts the game. Sets up the <see cref="Root"/> <c>GameObject</c>, generates the maps into the world, and positions the camera properly.
     /// </summary>
     /// <remarks>Called before the first frame update.</remarks>
-    void Start()
+    void Awake()
     {
         if (Root is not null) throw new Exception("Attempted to initialize a new GameManager but one already existed.");
         Root = gameObject;
@@ -127,11 +121,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GenerateMaps()
     {
-        for(int i = 0; i < NUM_MAPS; i++)
+        for(int i = 0; i < _maps.Count; i++)
         {
             Debug.Log($"Generating new map at (0, {-i}, 0)");
-            GameObject go = Instantiate(Prefabs.Map, new Vector3(0, -i, 0), Quaternion.identity);
-            _maps.Add(go.GetComponent<Map>());
         }
     }
     /// <summary>

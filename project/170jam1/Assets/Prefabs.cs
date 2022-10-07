@@ -12,15 +12,6 @@ public class Prefabs : MonoBehaviour
     /// </summary>
     public static Prefabs Instance => GameManager.Instance.Prefabs;
     /// <summary>
-    /// The GameObject prefab corresponding to each instance of <see cref="Map"/>.
-    /// </summary>
-    public static GameObject Map => Instance._map;
-    /// <summary>
-    /// Private non-static field backing <see cref="Map"/> so it can be set in the editor.
-    /// </summary>
-    [SerializeField]
-    private GameObject _map;
-    /// <summary>
     /// The GameObject prefab corresponding to each component tile of a Map.
     /// </summary>
     public static GameObject Tile => Instance._tile;

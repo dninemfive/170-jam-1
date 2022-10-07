@@ -8,6 +8,8 @@ using UnityEngine;
 /// </summary>
 public class Map : MonoBehaviour
 {
+    [SerializeField]
+    private Texture2D FloorTexture;
     /// <summary>
     /// A <see cref="Board{GameObject}"/> holding the component tiles of this map.
     /// </summary>
@@ -42,7 +44,9 @@ public class Map : MonoBehaviour
         Tiles = new(delegate(int x, int z)
         {
             GameObject prefab = Instantiate(Prefabs.Tile);
-            if (x % 2 == z % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
+            MeshRenderer mr = prefab.GetComponent<MeshRenderer>();
+            mr.material.mainTexture = FloorTexture;
+            if (x % 2 == z % 2) mr.material.color = Color.black;
             prefab.transform.position = new(x, transform.position.y, z);
             return prefab;
         });
