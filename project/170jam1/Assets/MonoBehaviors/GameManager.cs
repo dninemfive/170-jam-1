@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         if (mapIndex is < 0 or >= NUM_MAPS) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{NUM_MAPS})!");
         _mapIndex = mapIndex;
         Camera.transform.position = CurrentMap.CameraPosition;
-        for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex >= i;
+        for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>
     /// Goes to the next map. If it goes past the end, wraps back around to the first map.
