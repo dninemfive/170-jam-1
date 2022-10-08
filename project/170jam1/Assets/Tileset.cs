@@ -35,7 +35,7 @@ public class Tileset
         Scale(tex);
         _tileTextures = new(delegate (int x, int z)
         {
-
+            throw new NotImplementedException();
         });
     }
     /// <summary>

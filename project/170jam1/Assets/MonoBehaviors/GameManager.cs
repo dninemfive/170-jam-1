@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     /// The camera which is a fixed distance from the current map.
     /// </summary>
     [SerializeField]
-    public GameObject Camera { get; private set; }
+    private GameObject _camera;
+    public GameObject Camera => _camera;
     /// <summary>
     /// The GameObject representing the player.
     /// </summary>
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (mapIndex is < 0 or >= NUM_MAPS) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{NUM_MAPS})!");
         _mapIndex = mapIndex;
+        Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
@@ -70,10 +72,12 @@ public class GameManager : MonoBehaviour
     /// Goes to the previous map. If it goes past the end, wraps around to the last map.
     /// </summary>
     public void GoToPreviousMap() => GoToMap((--_mapIndex) % NUM_MAPS);
+    [SerializeField]
+    private Prefabs _prefabs;
     /// <summary>
     /// An object containing the prefabs to spawn in via scripts.
     /// </summary>
-    public Prefabs Prefabs { get; private set; }
+    public Prefabs Prefabs => _prefabs;
     /// <summary>
     /// The root GameObject, which holds the only valid instance of GameManager.
     /// </summary>
