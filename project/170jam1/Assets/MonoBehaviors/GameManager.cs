@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     /// The camera which is a fixed distance from the current map.
     /// </summary>
     [SerializeField]
-    private GameObject Camera;
+    public GameObject Camera { get; private set; }
     /// <summary>
     /// The GameObject representing the player.
     /// </summary>
