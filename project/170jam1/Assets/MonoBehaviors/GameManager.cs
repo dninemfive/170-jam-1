@@ -110,22 +110,6 @@ public class GameManager : MonoBehaviour
         GoToMap(0);
     }
     /// <summary>
-    /// Currently, debug code. Tracks the elapsed time so it can be used in <see cref="Update"/>.
-    /// </summary>
-    public float ElapsedTime { get; private set; } = 0;
-    /// <summary>
-    /// Currently, debug code. Goes to the next map every second.
-    /// </summary>
-    void Update()
-    {
-        ElapsedTime += Time.deltaTime;
-        if(ElapsedTime > 1)
-        {
-            ElapsedTime = 0;
-            GoToNextMap();
-        }
-    }
-    /// <summary>
     /// Generates <see cref="NUM_MAPS"/> maps into the world.
     /// </summary>
     public void GenerateMaps()
