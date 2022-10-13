@@ -13,6 +13,8 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject DebugSphere;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -33,7 +35,8 @@ public class GameManager : MonoBehaviour
     /// The camera which is a fixed distance from the current map.
     /// </summary>
     [SerializeField]
-    private GameObject Camera;
+    private GameObject _camera;
+    public GameObject Camera => _camera;
     /// <summary>
     /// The GameObject representing the player.
     /// </summary>
@@ -59,7 +62,10 @@ public class GameManager : MonoBehaviour
     {
         if (mapIndex is < 0 or >= NUM_MAPS) Debug.LogWarning($"Map index {mapIndex} is out of the range [0..{NUM_MAPS})!");
         _mapIndex = mapIndex;
+        Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
+        Player.transform.position = CurrentMap.PlayerPosition;
+        DebugSphere.transform.position = CurrentMap.PlayerPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>
@@ -70,10 +76,12 @@ public class GameManager : MonoBehaviour
     /// Goes to the previous map. If it goes past the end, wraps around to the last map.
     /// </summary>
     public void GoToPreviousMap() => GoToMap((--_mapIndex) % NUM_MAPS);
+    [SerializeField]
+    private Prefabs _prefabs;
     /// <summary>
     /// An object containing the prefabs to spawn in via scripts.
     /// </summary>
-    public Prefabs Prefabs { get; private set; }
+    public Prefabs Prefabs => _prefabs;
     /// <summary>
     /// The root GameObject, which holds the only valid instance of GameManager.
     /// </summary>
@@ -103,22 +111,6 @@ public class GameManager : MonoBehaviour
         Root = gameObject;
         GenerateMaps();
         GoToMap(0);
-    }
-    /// <summary>
-    /// Currently, debug code. Tracks the elapsed time so it can be used in <see cref="Update"/>.
-    /// </summary>
-    public float ElapsedTime { get; private set; } = 0;
-    /// <summary>
-    /// Currently, debug code. Goes to the next map every second.
-    /// </summary>
-    void Update()
-    {
-        ElapsedTime += Time.deltaTime;
-        if(ElapsedTime > 1)
-        {
-            ElapsedTime = 0;
-            GoToNextMap();
-        }
     }
     /// <summary>
     /// Generates <see cref="NUM_MAPS"/> maps into the world.

@@ -55,12 +55,17 @@ public class Map : MonoBehaviour
     /// <summary>
     /// The desired position of the camera above this map, namely centered on the XZ plane and <see cref="GameManager.CAMERA_DISTANCE"/> units above the map.
     /// </summary>
-    public Vector3 CameraPosition
+    public Vector3 CameraPosition => new(PlayerPosition.x, PlayerPosition.y + GameManager.CAMERA_DISTANCE, PlayerPosition.z);
+    /// <summary>
+    /// The starting position of the player on this map, namely centered on the XZ plane at the same height.
+    /// </summary>
+    public Vector3 PlayerPosition
     {
         get
         {
-            float x = transform.position.x + GameManager.NUM_TILES_X / 2f + 0.5f;
-            float y = transform.position.y + GameManager.CAMERA_DISTANCE;
+            float x = transform.position.x + GameManager.NUM_TILES_X / 2f - 0.5f;
+            // epsilon to make sure it's above the map in case of rounding errors
+            float y = transform.position.y + 1e-5f;
             float z = transform.position.z + GameManager.NUM_TILES_Z / 2f - 0.5f;
             return new(x, y, z);
         }
