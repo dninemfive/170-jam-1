@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         _mapIndex = mapIndex;
         Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
+        Player.transform.position = CurrentMap.PlayerPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>
