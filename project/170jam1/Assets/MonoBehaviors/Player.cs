@@ -7,7 +7,8 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    private InputHandler _input = null;
+    private Vector3 InputVector { get; set; }
+    private Vector3 MousePosition { get; set; }
     [SerializeField]
     private float MoveSpeed;
     [SerializeField]
@@ -15,21 +16,15 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool UseMouse;
     private Camera Camera => GameManager.Instance.Camera.GetComponent<Camera>();
-    private void Awake()
-    {
-        _input = GetComponent<InputHandler>();
-    }
     private void Update()
     {
-        Vector3 targetVector = new(_input.InputVector.x, 0, _input.InputVector.y);
-        if(UseMouse)
-        {
-            RotateTowardMouseVector();
-        }
-        else
-        {
-            RotateToward(MovementVectorToward(targetVector));
-        }
+        UpdateInputVectors();
+        transform.position += InputVector.normalized * MoveSpeed * Time.deltaTime;
+    }
+    private void UpdateInputVectors()
+    {
+        InputVector = new(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        MousePosition = Input.mousePosition;
     }
     private Vector3 MovementVectorToward(Vector3 targetVector)
     {
@@ -47,7 +42,7 @@ public class Player : MonoBehaviour
     }
     private void RotateTowardMouseVector()
     {
-        Ray ray = Camera.ScreenPointToRay(_input.MousePosition);
+        Ray ray = Camera.ScreenPointToRay(MousePosition);
         if(Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
         {
             Vector3 target = hitInfo.point;
