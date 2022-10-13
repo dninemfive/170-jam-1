@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject DebugSphere;
     //timer for enemies spawn
-    float timer = 0.0f;
+    float timer = 5.0f;
+    [SerializeField] float spawnTime = 6.0f;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
     {
         //spawn enemy every 10 secs
         timer += Time.deltaTime;
-        if (timer >= 1.0)
+        if (timer >= spawnTime)
         {
             timer = 0.0f;
             spawnEnemy();
