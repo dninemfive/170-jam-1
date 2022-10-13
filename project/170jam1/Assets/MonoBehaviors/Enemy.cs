@@ -10,32 +10,32 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     ///reference to the player object
-    [SerializeField] GameObject player;
     [SerializeField] int knockbackForce = 2;
+    GameObject player;
     Rigidbody rb;
     Collider col;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        player = FindObjectOfType<Player>().gameObject;
     }
-
     // Update is called once per frame
     void Update()
     {
         
         if(player)
         {
-            transform.LookAt(player.transform);
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, (float)0.009);
+            //look at the player
+            Transform lookPoint = player.transform;
+            lookPoint.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+            transform.LookAt(lookPoint);
             transform.Rotate(90, 0, 0);
+
+            //move towards the player
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, 0, player.transform.position.z), (float)0.009);
+            
         }
-        //if(player)
-        //{
-        //    Vector3 knockback = new Vector3(5, 0, 5);
-        //    rb.AddForce(Vector3.Scale((transform.position - player.transform.position), knockback);
-        //}
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,10 +48,6 @@ public class Enemy : MonoBehaviour
                 Vector3 knockback = (player.transform.position - transform.position).normalized * knockbackForce;
                 playerRb.AddForce(knockback, ForceMode.Impulse);
             }
-            
-            //rb.AddForce(knockback);
-            //transform.position = knockback;
-            Debug.Log("check");
         }
     }
 }

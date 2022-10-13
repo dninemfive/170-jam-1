@@ -29,4 +29,13 @@ public class Prefabs : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject _tile;
+    /// <summary>
+    /// The GameObject prefab corresponding to enemies.
+    /// </summary>
+    public static GameObject Enemy => Instance._enemy;
+    /// <summary>
+    /// Private non-static field backing <see cref="Enemy"/> so it can be set in the editor.
+    /// </summary>
+    [SerializeField]
+    private GameObject _enemy;
 }

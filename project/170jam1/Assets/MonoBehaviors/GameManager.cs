@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject DebugSphere;
+    //timer for enemies spawn
+    float timer = 0.0f;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -112,6 +114,17 @@ public class GameManager : MonoBehaviour
         GenerateMaps();
         GoToMap(0);
     }
+
+    private void Update()
+    {
+        //spawn enemy every 10 secs
+        timer += Time.deltaTime;
+        if (timer >= 1.0)
+        {
+            timer = 0.0f;
+            spawnEnemy();
+        }
+    }
     /// <summary>
     /// Generates <see cref="NUM_MAPS"/> maps into the world.
     /// </summary>
@@ -135,5 +148,12 @@ public class GameManager : MonoBehaviour
                 for (int j = 0; j < NUM_TILES_Z; j++)
                     yield return (i, j);
         }
+    }
+
+    void spawnEnemy()
+    {
+        Vector3 position = new Vector3(UnityEngine.Random.Range(15, 0), Player.transform.position.y ,UnityEngine.Random.Range(8, 0));
+        Instantiate(Prefabs.Enemy, position, Quaternion.identity);
+        Debug.Log("spawned");
     }
 }
