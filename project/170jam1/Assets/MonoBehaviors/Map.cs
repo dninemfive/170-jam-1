@@ -9,14 +9,6 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     /// <summary>
-    /// The artstyle used by this specific Map.
-    /// </summary>
-    Artstyle Artstyle;
-    /// <summary>
-    /// A list of enemies on this map.
-    /// </summary>
-    List<GameObject> Enemies;
-    /// <summary>
     /// A <see cref="Board{GameObject}"/> holding the component tiles of this map.
     /// </summary>
     public Board<GameObject> Tiles { get; private set; }
