@@ -13,6 +13,8 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject DebugSphere;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
         Player.transform.position = CurrentMap.PlayerPosition;
+        DebugSphere.transform.position = CurrentMap.PlayerPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>
