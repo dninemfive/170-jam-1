@@ -22,6 +22,6 @@ public class InputHandler : MonoBehaviour
         InputVector = new Vector2(h, v);
 
         MousePosition = Input.mousePosition;
-        Mouse.transform.position = MousePosition;
+        Mouse.transform.position = MousePosition.Translate(y: 0.5f);
     }
 }
