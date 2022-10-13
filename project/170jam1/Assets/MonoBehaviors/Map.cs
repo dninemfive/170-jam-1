@@ -65,7 +65,7 @@ public class Map : MonoBehaviour
         {
             float x = transform.position.x + GameManager.NUM_TILES_X / 2f - 0.5f;
             // epsilon to make sure it's above the map in case of rounding errors
-            float y = transform.position.y + float.Epsilon;
+            float y = transform.position.y + 1e-5f;
             float z = transform.position.z + GameManager.NUM_TILES_Z / 2f - 0.5f;
             return new(x, y, z);
         }
