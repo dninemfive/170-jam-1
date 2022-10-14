@@ -9,10 +9,18 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    ///reference to the player object
     [SerializeField] int knockbackForce = 2;
-    private GameObject player => GameManager.Instance.Player;
+    GameObject player;
     Rigidbody rb;
     Collider col;
+    Animator animator;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        player = FindObjectOfType<Player>().gameObject;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -38,8 +46,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // `CompareTag` is apparently faster, and more importantly, suppresses UNT0002
-        if(other.CompareTag("Player"))
+        if(other.tag == "Player")
         {
             Rigidbody playerRb = other.GetComponent<Rigidbody>();
             if(playerRb != null)
