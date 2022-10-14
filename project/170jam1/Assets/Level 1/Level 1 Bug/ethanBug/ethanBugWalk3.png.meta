@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ed08b1dc65ad7a647bb23809c5b3dd7b
+guid: d366ef54c572d8442b4c4e6d50be105f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -51,7 +51,7 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -141,22 +141,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bug_walk_0
+      name: ethanBugWalk3_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 600
-        height: 600
+        width: 96
+        height: 96
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 16174d456e4217d47a53fd1d13693084
-      internalID: -1227342023
+      spriteID: 85dacdd7ce99b814a8929ea1e1045edd
+      internalID: 1844521384
       vertices: []
       indices: 
       edges: []
@@ -164,7 +164,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d9826b8a4ef2ef34fb4e01cce65e361b
+    spriteID: 2fe648a320d6e0d44a2f8d69ef18dcfd
     internalID: 0
     vertices: []
     indices: 
@@ -172,7 +172,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bug_walk_0: -1227342023
+      ethanBugWalk3_0: 1844521384
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

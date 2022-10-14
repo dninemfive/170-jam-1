@@ -15,8 +15,10 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject DebugSphere;
+    [SerializeField]
+    private Animator PlayerAnim;
+    int currAnim = 0;
     //timer for enemies spawn
-    
     [SerializeField] float spawnTime = 6.0f;
     float timer;
     /// <summary>
@@ -117,6 +119,7 @@ public class GameManager : MonoBehaviour
         Root = gameObject;
         GenerateMaps();
         GoToMap(0);
+        PlayerAnim.SetFloat("currAnim", currAnim);
     }
 
     private void Update()
@@ -127,6 +130,11 @@ public class GameManager : MonoBehaviour
         {
             timer = 0.0f;
             spawnEnemy();
+        }
+        if(Player.transform.position.y < 0)
+        {
+            Debug.Log("fall");
+            PlayerAnim.SetTrigger("pixel");
         }
     }
     /// <summary>
