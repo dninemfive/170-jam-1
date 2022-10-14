@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bugwalk
+  m_Name: enemy
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -17,45 +17,21 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
-  m_PPtrCurves:
-  - curve:
-    - time: 0
-      value: {fileID: 1836424570, guid: d34122a0e03eb7e46b8469f1d83e0224, type: 3}
-    - time: 0.083333336
-      value: {fileID: 1844521384, guid: d366ef54c572d8442b4c4e6d50be105f, type: 3}
-    - time: 0.16666667
-      value: {fileID: 1073643315, guid: f21fc4e6c01d42e49b86cf5d94a317df, type: 3}
-    - time: 0.25
-      value: {fileID: -2002820403, guid: ccf5c6d5bf24f214b80ae2e199d3a458, type: 3}
-    attribute: m_Sprite
-    path: 
-    classID: 212
-    script: {fileID: 0}
+  m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings:
-    - serializedVersion: 2
-      path: 0
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-    pptrCurveMapping:
-    - {fileID: 1836424570, guid: d34122a0e03eb7e46b8469f1d83e0224, type: 3}
-    - {fileID: 1844521384, guid: d366ef54c572d8442b4c4e6d50be105f, type: 3}
-    - {fileID: 1073643315, guid: f21fc4e6c01d42e49b86cf5d94a317df, type: 3}
-    - {fileID: -2002820403, guid: ccf5c6d5bf24f214b80ae2e199d3a458, type: 3}
+    genericBindings: []
+    pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.26666668
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

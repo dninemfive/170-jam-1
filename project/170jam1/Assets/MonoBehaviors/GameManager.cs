@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Animator PlayerAnim;
     int currAnim = 0;
+    [SerializeField]
+    private Animator EnemyAnim;
+    int currEnemyAnim = 0;
     //timer for enemies spawn
     [SerializeField] float spawnTime = 6.0f;
     float timer;
@@ -136,6 +139,13 @@ public class GameManager : MonoBehaviour
             Debug.Log("fall");
             PlayerAnim.SetTrigger("pixel");
         }
+        if (Player.transform.position.y < 0)
+        {
+            Debug.Log("fall");
+            
+
+        }
+        EnemyAnim.SetInteger("tex", 2);
     }
     /// <summary>
     /// Generates <see cref="NUM_MAPS"/> maps into the world.
