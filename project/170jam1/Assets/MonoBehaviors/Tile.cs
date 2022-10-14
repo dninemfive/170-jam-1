@@ -26,5 +26,5 @@ public class Tile : MonoBehaviour
     {
         if (State is not TileState.Destroyed) State = visible.ToTileState();
     }
-    public void Destroy() => State = TileState.Destroyed;
+    public void MarkDestroyed() => State = TileState.Destroyed;
 }

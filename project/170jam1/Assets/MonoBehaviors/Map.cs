@@ -72,6 +72,10 @@ public class Map : MonoBehaviour
     }
     public void DestroyTilesInRadius(Vector3 center, float radius)
     {
-        foreach (Tile t in TilesInRadius(center, radius)) t.Destroy();
+        foreach (Tile t in TilesInRadius(center, radius))
+        {
+            t.MarkDestroyed();
+            Debug.Log($"Destroyed {t}");
+        }
     }
 }
