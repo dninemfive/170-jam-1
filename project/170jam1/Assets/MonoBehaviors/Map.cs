@@ -66,4 +66,12 @@ public class Map : MonoBehaviour
             return new(x, y, z);
         }
     }
+    public IEnumerable<Tile> TilesInRadius(Vector3 center, float radius)
+    {
+        foreach (Tile tile in Tiles.AllItems) if (tile.DistanceFrom(center) <= radius) yield return tile;
+    }
+    public void DestroyTilesInRadius(Vector3 center, float radius)
+    {
+        foreach (Tile t in TilesInRadius(center, radius)) t.Destroy();
+    }
 }

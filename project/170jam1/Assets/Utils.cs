@@ -26,6 +26,8 @@ public static class Utils
     {
         TileState.Visible => true,
         TileState.Hidden => false,
-        _ => null
+        _ => throw new Exception("TileState.ToBool() is only valid for values Visible and Hidden.")
     };
+    public static float DistanceFrom(this Vector3 a, Vector3 b) => Mathf.Sqrt(Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2) + Mathf.Pow(a.z - b.z, 2));
+    public static float DistanceFrom(this Tile tile, Vector3 b) => DistanceFrom(tile.transform.position, b);
 }

@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // `CompareTag` is apparently faster, and more importantly, suppresses UNT0002
         if(other.CompareTag("Player"))
         {
             Rigidbody playerRb = other.GetComponent<Rigidbody>();
