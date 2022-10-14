@@ -121,8 +121,6 @@ public class GameManager : MonoBehaviour
         Root = gameObject;
         GenerateMaps();
         GoToMap(0);
-        PlayerAnim.SetInteger("currAnim", _mapIndex);
-        EnemyAnim.SetInteger("currAnim", _mapIndex);
     }
 
     private void Update()
@@ -135,14 +133,12 @@ public class GameManager : MonoBehaviour
             timer = 0.0f;
             spawnEnemy();
         }
-
+        //go to next map every 4 seconds
         if(timer2 > 5.0f)
         {
             timer2 = 0.0f;
             GoToNextMaap();
         }
-
-        EnemyAnim.SetInteger("enemyCurr", _mapIndex);
         PlayerAnim.SetInteger("currAnim", _mapIndex);
     }
     /// <summary>
@@ -170,6 +166,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    GameObject inst;
     void spawnEnemy()
     {
         //select random position
@@ -177,7 +174,8 @@ public class GameManager : MonoBehaviour
         //if the position is far enough away from the player then spawn otherwise try again next frame
         if(Vector3.Distance(position, Player.transform.position) > 5)
         {
-            Instantiate(Prefabs.Enemy, position, Quaternion.identity);
+            inst = Instantiate(Prefabs.Enemy, position, Quaternion.identity);
+            inst.GetComponent<Animator>().SetInteger("enemyCurr", _mapIndex);
         } else {
             timer = spawnTime;
         }

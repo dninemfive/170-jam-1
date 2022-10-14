@@ -171,7 +171,7 @@ MonoBehaviour:
   DebugSphere: {fileID: 0}
   PlayerAnim: {fileID: 1730243324}
   EnemyAnim: {fileID: -8774408891282869611, guid: 599cd20173d22cf41aa5a1a328ded031, type: 3}
-  spawnTime: 1
+  spawnTime: 5
   _camera: {fileID: 963194225}
   Player: {fileID: 1730243314}
   _prefabs: {fileID: 609668104}

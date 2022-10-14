@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     GameObject player;
     Rigidbody rb;
     Collider col;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
