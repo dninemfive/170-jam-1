@@ -9,9 +9,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    ///reference to the player object
     [SerializeField] int knockbackForce = 2;
-    [SerializeField] GameObject player => GameManager.Instance.Player;
+    private GameObject player => GameManager.Instance.Player;
     Rigidbody rb;
     Collider col;
     // Update is called once per frame

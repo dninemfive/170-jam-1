@@ -78,4 +78,17 @@ public class Map : MonoBehaviour
             Debug.Log($"Destroyed {t}");
         }
     }
+    public void UpdateColor(int index)
+    {
+        Debug.Log($"Updating {this} with index {index}");
+        foreach(Tile t in Tiles.AllItems)
+        {
+            GameObject go = t.gameObject;
+            int x = (int)go.transform.position.x, z = (int)go.transform.position.y;
+            Debug.Log("\t1");
+            List<Color> col = Utils.DebugColors[index];
+            Debug.Log($"\t2 {((x + z) % 2)}");
+            go.GetComponent<MeshRenderer>().material.color = col[(x + z) % 2];
+        }
+    }
 }

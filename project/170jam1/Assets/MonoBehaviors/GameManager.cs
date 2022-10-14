@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
     /// </summary>
-    public const int NUM_MAPS = 5;
+    public const int NUM_MAPS = 4;
     /// <summary>
     /// The camera which is a fixed distance from the current map.
     /// </summary>
@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Generating new map at (0, {-i}, 0)");
             GameObject go = Instantiate(Prefabs.Map, new Vector3(0, -i, 0), Quaternion.identity);
             _maps.Add(go.GetComponent<Map>());
+            go.GetComponent<Map>().UpdateColor(i);
         }
     }
     /// <summary>

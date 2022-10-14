@@ -8,7 +8,11 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.Translate(-transform.forward.normalized * Time.deltaTime * 7);
-        if(true /* how do collisions work??? */)
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        // `CompareTag` is apparently faster, and more importantly, suppresses UNT0002
+        if (other.CompareTag("Enemy") || other.CompareTag("Wall"))
         {
             GameManager.Instance.CurrentMap.DestroyTilesInRadius(transform.position, 2f);
             Destroy(this);
