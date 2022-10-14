@@ -266,6 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugSphere: {fileID: 328238502}
+  spawnTime: 1
   _camera: {fileID: 963194225}
   Player: {fileID: 1730243314}
   _prefabs: {fileID: 609668104}

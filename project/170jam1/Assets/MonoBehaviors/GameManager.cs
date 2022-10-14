@@ -16,8 +16,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject DebugSphere;
     //timer for enemies spawn
-    float timer = 5.0f;
+    
     [SerializeField] float spawnTime = 6.0f;
+    float timer;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -110,6 +111,8 @@ public class GameManager : MonoBehaviour
     /// <remarks>Called before the first frame update.</remarks>
     void Start()
     {
+        //ensures the first spawn is always 3 secs after the begining of the game
+        timer = spawnTime - 3.0f;
         if (Root is not null) throw new Exception("Attempted to initialize a new GameManager but one already existed.");
         Root = gameObject;
         GenerateMaps();
@@ -153,8 +156,14 @@ public class GameManager : MonoBehaviour
 
     void spawnEnemy()
     {
+        //select random position
         Vector3 position = new Vector3(UnityEngine.Random.Range(15, 0), Player.transform.position.y ,UnityEngine.Random.Range(8, 0));
-        Instantiate(Prefabs.Enemy, position, Quaternion.identity);
-        Debug.Log("spawned");
+        //if the position is far enough away from the player then spawn otherwise try again next frame
+        if(Vector3.Distance(position, Player.transform.position) > 5)
+        {
+            Instantiate(Prefabs.Enemy, position, Quaternion.identity);
+        } else {
+            timer = spawnTime;
+        }
     }
 }
