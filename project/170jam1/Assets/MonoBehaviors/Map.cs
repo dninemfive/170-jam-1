@@ -85,10 +85,8 @@ public class Map : MonoBehaviour
         {
             GameObject go = t.gameObject;
             int x = (int)go.transform.position.x, z = (int)go.transform.position.y;
-            Debug.Log("\t1");
-            List<Color> col = Utils.DebugColors[index];
-            Debug.Log($"\t2 {((x + z) % 2)}");
-            go.GetComponent<MeshRenderer>().material.color = col[(x + z) % 2];
+            int ind2 = x % 2 == z % 2 ? 0 : 1;
+            go.GetComponent<MeshRenderer>().material.color = Utils.DebugColors[index][ind2];
         }
     }
 }

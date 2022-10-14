@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        return;
         // `CompareTag` is apparently faster, and more importantly, suppresses UNT0002
         if (other.CompareTag("Enemy") || other.CompareTag("Wall"))
         {
