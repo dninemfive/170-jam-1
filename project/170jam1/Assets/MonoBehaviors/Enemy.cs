@@ -11,15 +11,9 @@ public class Enemy : MonoBehaviour
 {
     ///reference to the player object
     [SerializeField] int knockbackForce = 2;
-    GameObject player;
+    [SerializeField] GameObject player => GameManager.Instance.Player;
     Rigidbody rb;
     Collider col;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = FindObjectOfType<Player>().gameObject;
-    }
     // Update is called once per frame
     void Update()
     {

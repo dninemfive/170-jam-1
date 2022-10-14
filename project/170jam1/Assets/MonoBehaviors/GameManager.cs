@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour
     /// The GameObject representing the player.
     /// </summary>
     [SerializeField]
-    private GameObject Player;
+    private GameObject _player;
+    public GameObject Player => _player;
     /// <summary>
     /// A list of Map components corresponding to the generated maps. Private because we don't want to mess with it after generation.
     /// </summary>
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
         _mapIndex = mapIndex;
         Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
-        Player.transform.position = CurrentMap.PlayerPosition;
+        _player.transform.position = CurrentMap.PlayerPosition;
         DebugSphere.transform.position = CurrentMap.PlayerPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
@@ -157,9 +158,9 @@ public class GameManager : MonoBehaviour
     void spawnEnemy()
     {
         //select random position
-        Vector3 position = new Vector3(UnityEngine.Random.Range(15, 0), Player.transform.position.y ,UnityEngine.Random.Range(8, 0));
+        Vector3 position = new Vector3(UnityEngine.Random.Range(15, 0), _player.transform.position.y ,UnityEngine.Random.Range(8, 0));
         //if the position is far enough away from the player then spawn otherwise try again next frame
-        if(Vector3.Distance(position, Player.transform.position) > 5)
+        if(Vector3.Distance(position, _player.transform.position) > 5)
         {
             Instantiate(Prefabs.Enemy, position, Quaternion.identity);
         } else {
