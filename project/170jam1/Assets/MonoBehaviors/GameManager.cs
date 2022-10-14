@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
     int currAnim = 0;
     [SerializeField]
     private Animator EnemyAnim;
-    int currEnemyAnim = 0;
     //timer for enemies spawn
     [SerializeField] float spawnTime = 6.0f;
     float timer;
+    float timer2 = 0.0f;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -73,14 +73,13 @@ public class GameManager : MonoBehaviour
         _mapIndex = mapIndex;
         Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
-        Player.transform.position = CurrentMap.PlayerPosition;
-        DebugSphere.transform.position = CurrentMap.PlayerPosition;
+        Player.transform.position = CurrentMap.PlayerPosition + new Vector3(0, 0.1f ,0);
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>
     /// Goes to the next map. If it goes past the end, wraps back around to the first map.
     /// </summary>
-    public void GoToNextMap() => GoToMap((++_mapIndex) % NUM_MAPS);
+    public void GoToNextMaap() => GoToMap((++_mapIndex) % NUM_MAPS);
     /// <summary>
     /// Goes to the previous map. If it goes past the end, wraps around to the last map.
     /// </summary>
@@ -122,30 +121,29 @@ public class GameManager : MonoBehaviour
         Root = gameObject;
         GenerateMaps();
         GoToMap(0);
-        PlayerAnim.SetFloat("currAnim", currAnim);
+        PlayerAnim.SetInteger("currAnim", _mapIndex);
+        EnemyAnim.SetInteger("currAnim", _mapIndex);
     }
 
     private void Update()
     {
         //spawn enemy every 10 secs
         timer += Time.deltaTime;
+        timer2 += Time.deltaTime;
         if (timer >= spawnTime)
         {
             timer = 0.0f;
             spawnEnemy();
         }
-        if(Player.transform.position.y < 0)
-        {
-            Debug.Log("fall");
-            PlayerAnim.SetTrigger("pixel");
-        }
-        if (Player.transform.position.y < 0)
-        {
-            Debug.Log("fall");
-            
 
+        if(timer2 > 5.0f)
+        {
+            timer2 = 0.0f;
+            GoToNextMaap();
         }
-        EnemyAnim.SetInteger("tex", 2);
+
+        EnemyAnim.SetInteger("enemyCurr", _mapIndex);
+        PlayerAnim.SetInteger("currAnim", _mapIndex);
     }
     /// <summary>
     /// Generates <see cref="NUM_MAPS"/> maps into the world.
