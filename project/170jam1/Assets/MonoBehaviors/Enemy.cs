@@ -27,14 +27,19 @@ public class Enemy : MonoBehaviour
         if(player)
         {
             //look at the player
-            Transform lookPoint = player.transform;
-            lookPoint.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
-            transform.LookAt(lookPoint);
+            //Transform lookPoint = player.transform;
+            //lookPoint.position = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+            //transform.LookAt(lookPoint);
+            transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position);
             transform.Rotate(90, 0, 0);
 
             //move towards the player
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(player.transform.position.x, 0, player.transform.position.z), (float)0.009);
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, (float)0.009);
             
+        }
+        if(!(0.2 > (transform.position.y - player.transform.position.y) && (transform.position.y - player.transform.position.y) > -0.2))
+        {
+            Destroy(gameObject);
         }
     }
 
