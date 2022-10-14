@@ -13,8 +13,6 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject DebugSphere;
     //timer for enemies spawn
     
     [SerializeField] float spawnTime = 6.0f;
@@ -70,7 +68,6 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
         _player.transform.position = CurrentMap.PlayerPosition;
-        DebugSphere.transform.position = CurrentMap.PlayerPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>

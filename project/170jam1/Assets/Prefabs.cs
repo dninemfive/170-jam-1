@@ -38,4 +38,8 @@ public class Prefabs : MonoBehaviour
     /// </summary>
     [SerializeField]
     private GameObject _enemy;
+
+    public static GameObject Bullet => Instance._bullet;
+    [SerializeField]
+    private GameObject _bullet;
 }

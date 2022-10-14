@@ -15,8 +15,7 @@ public class TopDownMovement : MonoBehaviour
     [SerializeField]
     private bool useMouse;
 
-    [SerializeField]
-    private Camera Camera;
+    private Camera Camera => GameManager.Instance.Camera.GetComponent<Camera>();
 
     private void Awake()
     {
@@ -40,7 +39,6 @@ public class TopDownMovement : MonoBehaviour
     private Vector3 MoveTowardTarget(Vector3 targetVector)
     {
         var speed = moveSpeed * Time.deltaTime;
-        
         targetVector = Quaternion.Euler(0, Camera.gameObject.transform.eulerAngles.y , 0) * targetVector;
         var targetPosition = transform.position + targetVector  * speed;
         transform.position = targetPosition;
@@ -57,8 +55,6 @@ public class TopDownMovement : MonoBehaviour
     private void RotateTowardMouseVector()
     {
         Ray ray = Camera.ScreenPointToRay(_input.MousePosition);
-        
-
         if (Physics.Raycast(ray, out RaycastHit hitInfo, maxDistance: 300f))
         {
             var target = hitInfo.point;
@@ -69,5 +65,8 @@ public class TopDownMovement : MonoBehaviour
         }
     }
 
-
+    private void ShootIfNecessary()
+    {
+        if (Input.GetMouseButtonDown(0)) Instantiate(Prefabs.Bullet, transform.position, transform.rotation);
+    }
 }
