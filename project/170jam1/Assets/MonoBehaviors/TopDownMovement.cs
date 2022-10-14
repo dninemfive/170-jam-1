@@ -34,6 +34,7 @@ public class TopDownMovement : MonoBehaviour
         } else {
             RotateTowardMouseVector();
         }
+        ShootIfNecessary();
     }
 
     private Vector3 MoveTowardTarget(Vector3 targetVector)
@@ -67,6 +68,9 @@ public class TopDownMovement : MonoBehaviour
 
     private void ShootIfNecessary()
     {
-        if (Input.GetMouseButtonDown(0)) Instantiate(Prefabs.Bullet, transform.position, transform.rotation);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(Prefabs.Bullet, transform.position, transform.rotation);
+        }
     }
 }
