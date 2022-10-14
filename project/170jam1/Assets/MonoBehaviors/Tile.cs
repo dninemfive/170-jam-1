@@ -12,12 +12,14 @@ public class Tile : MonoBehaviour
         set
         {
             _state = value;
-            if(_state is TileState.Visible)
+            if (_state is TileState.Visible or TileState.Hidden)
             {
-                MeshRenderer.enabled = true;
-            } else
+                gameObject.SetActive(true);
+                MeshRenderer.enabled = _state.ToBool().Value;
+            } 
+            else
             {
-                MeshRenderer.enabled = false;
+                gameObject.SetActive(false);
             }
         }
     }

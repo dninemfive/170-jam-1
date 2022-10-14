@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         transform.Translate(-transform.forward.normalized * Time.deltaTime * 7);
-        if(false /* how do collisions work??? */)
+        if(true /* how do collisions work??? */)
         {
             GameManager.Instance.CurrentMap.DestroyTilesInRadius(transform.position, 2f);
             Destroy(this);
