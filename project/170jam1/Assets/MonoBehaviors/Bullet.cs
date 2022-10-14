@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-transform.forward.normalized * 0.01f);
+        transform.Translate(-transform.forward.normalized * Time.deltaTime * 7);
         if(false /* how do collisions work??? */)
         {
             GameManager.Instance.CurrentMap.DestroyTilesInRadius(transform.position, 2f);
