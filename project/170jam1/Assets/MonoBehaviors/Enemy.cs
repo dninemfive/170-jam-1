@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.CompareTag("Player"))
         {
             Rigidbody playerRb = other.GetComponent<Rigidbody>();
             if(playerRb != null)

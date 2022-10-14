@@ -17,4 +17,15 @@ public static class Utils
     /// <returns>See summary.</returns>
     /// <remarks>This is what's known as an <em>extension method</em>, and in addition to the normal way, can be called as if it were a method on <c>Vector3</c>.</remarks>
     public static Vector3 Translate(this Vector3 vec, float x = 0f, float y = 0f, float z = 0f) => new(vec.x + x, vec.y + y, vec.z + z);
+    public static TileState ToTileState(this bool b) => b switch
+    {
+        true => TileState.Visible,
+        false => TileState.Hidden
+    };
+    public static bool? ToBool(this TileState ts) => ts switch
+    {
+        TileState.Visible => true,
+        TileState.Hidden => false,
+        _ => null
+    };
 }

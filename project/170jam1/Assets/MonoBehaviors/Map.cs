@@ -9,9 +9,9 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     /// <summary>
-    /// A <see cref="Board{GameObject}"/> holding the component tiles of this map.
+    /// A <see cref="Board{Tile}"/> holding the component tiles of this map.
     /// </summary>
-    public Board<GameObject> Tiles { get; private set; }
+    public Board<Tile> Tiles { get; private set; }
     /// <summary>
     /// Internal variable used by <see cref="Visible"/>.
     /// </summary>
@@ -25,11 +25,7 @@ public class Map : MonoBehaviour
         set 
         {
             _visible = value;
-            foreach (GameObject go in Tiles.AllItems)
-            {
-                MeshRenderer mr = go.GetComponent<MeshRenderer>();
-                mr.enabled = _visible;
-            }
+            foreach (Tile t in Tiles.AllItems) t.SetVisible(_visible);
         }
     }
     /// <summary>
@@ -44,7 +40,7 @@ public class Map : MonoBehaviour
             GameObject prefab = Instantiate(Prefabs.Tile);
             if (x % 2 == z % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
             prefab.transform.position = new(x, transform.position.y, z);
-            return prefab;
+            return prefab.GetComponent<Tile>();
         });
     }
     /// <summary>

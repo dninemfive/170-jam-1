@@ -22,13 +22,9 @@ public class Tile : MonoBehaviour
         }
     }
     private MeshRenderer MeshRenderer => GetComponent<MeshRenderer>();
-    public void Hide()
+    public void SetVisible(bool visible)
     {
-        if (State is not TileState.Destroyed) State = TileState.Hidden;
-    }
-    public void Unhide()
-    {
-        if (State is not TileState.Destroyed) State = TileState.Visible;
+        if (State is not TileState.Destroyed) State = visible.ToTileState();
     }
     public void Destroy() => State = TileState.Destroyed;
 }
