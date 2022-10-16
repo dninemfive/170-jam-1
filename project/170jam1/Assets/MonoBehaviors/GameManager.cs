@@ -13,8 +13,10 @@ using UnityEngine;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject DebugSphere;
+    //timer for enemies spawn
+    
+    [SerializeField] float spawnTime = 6.0f;
+    float timer;
     /// <summary>
     /// The number of tiles in the x (horizontal) direction.
     /// </summary>
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// The number of maps, which should correspond to the number of artstyles loaded but does not necessarily need to do so.
     /// </summary>
-    public const int NUM_MAPS = 5;
+    public const int NUM_MAPS = 4;
     /// <summary>
     /// The camera which is a fixed distance from the current map.
     /// </summary>
@@ -41,7 +43,8 @@ public class GameManager : MonoBehaviour
     /// The GameObject representing the player.
     /// </summary>
     [SerializeField]
-    private GameObject Player;
+    private GameObject _player;
+    public GameObject Player => _player;
     /// <summary>
     /// A list of Map components corresponding to the generated maps. Private because we don't want to mess with it after generation.
     /// </summary>
@@ -64,8 +67,7 @@ public class GameManager : MonoBehaviour
         _mapIndex = mapIndex;
         Debug.Log($"Camera: {Camera}\nCurrentMap: {CurrentMap}");
         Camera.transform.position = CurrentMap.CameraPosition;
-        Player.transform.position = CurrentMap.PlayerPosition;
-        DebugSphere.transform.position = CurrentMap.PlayerPosition;
+        _player.transform.position = CurrentMap.PlayerPosition;
         for (int i = 0; i < _maps.Count; i++) _maps[i].Visible = _mapIndex <= i;
     }
     /// <summary>
@@ -107,10 +109,23 @@ public class GameManager : MonoBehaviour
     /// <remarks>Called before the first frame update.</remarks>
     void Start()
     {
+        //ensures the first spawn is always 3 secs after the begining of the game
+        timer = spawnTime - 3.0f;
         if (Root is not null) throw new Exception("Attempted to initialize a new GameManager but one already existed.");
         Root = gameObject;
         GenerateMaps();
         GoToMap(0);
+    }
+
+    private void Update()
+    {
+        //spawn enemy every 10 secs
+        timer += Time.deltaTime;
+        if (timer >= spawnTime)
+        {
+            timer = 0.0f;
+            spawnEnemy();
+        }
     }
     /// <summary>
     /// Generates <see cref="NUM_MAPS"/> maps into the world.
@@ -122,6 +137,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Generating new map at (0, {-i}, 0)");
             GameObject go = Instantiate(Prefabs.Map, new Vector3(0, -i, 0), Quaternion.identity);
             _maps.Add(go.GetComponent<Map>());
+            go.GetComponent<Map>().UpdateColor(i);
         }
     }
     /// <summary>
@@ -134,6 +150,19 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < NUM_TILES_X; i++)
                 for (int j = 0; j < NUM_TILES_Z; j++)
                     yield return (i, j);
+        }
+    }
+
+    void spawnEnemy()
+    {
+        //select random position
+        Vector3 position = new Vector3(UnityEngine.Random.Range(15, 0), _player.transform.position.y ,UnityEngine.Random.Range(8, 0));
+        //if the position is far enough away from the player then spawn otherwise try again next frame
+        if(Vector3.Distance(position, _player.transform.position) > 5)
+        {
+            Instantiate(Prefabs.Enemy, position, Quaternion.identity);
+        } else {
+            timer = spawnTime;
         }
     }
 }

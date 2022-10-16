@@ -9,9 +9,9 @@ using UnityEngine;
 public class Map : MonoBehaviour
 {
     /// <summary>
-    /// A <see cref="Board{GameObject}"/> holding the component tiles of this map.
+    /// A <see cref="Board{Tile}"/> holding the component tiles of this map.
     /// </summary>
-    public Board<GameObject> Tiles { get; private set; }
+    public Board<Tile> Tiles { get; private set; }
     /// <summary>
     /// Internal variable used by <see cref="Visible"/>.
     /// </summary>
@@ -25,11 +25,7 @@ public class Map : MonoBehaviour
         set 
         {
             _visible = value;
-            foreach (GameObject go in Tiles.AllItems)
-            {
-                MeshRenderer mr = go.GetComponent<MeshRenderer>();
-                mr.enabled = _visible;
-            }
+            foreach (Tile t in Tiles.AllItems) t.SetVisible(_visible);
         }
     }
     /// <summary>
@@ -44,7 +40,7 @@ public class Map : MonoBehaviour
             GameObject prefab = Instantiate(Prefabs.Tile);
             if (x % 2 == z % 2) prefab.GetComponent<MeshRenderer>().material.color = Color.black;
             prefab.transform.position = new(x, transform.position.y, z);
-            return prefab;
+            return prefab.GetComponent<Tile>();
         });
     }
     /// <summary>
@@ -68,6 +64,29 @@ public class Map : MonoBehaviour
             float y = transform.position.y + 1e-5f;
             float z = transform.position.z + GameManager.NUM_TILES_Z / 2f - 0.5f;
             return new(x, y, z);
+        }
+    }
+    public IEnumerable<Tile> TilesInRadius(Vector3 center, float radius)
+    {
+        foreach (Tile tile in Tiles.AllItems) if (tile.DistanceFrom(center) <= radius) yield return tile;
+    }
+    public void DestroyTilesInRadius(Vector3 center, float radius)
+    {
+        foreach (Tile t in TilesInRadius(center, radius))
+        {
+            t.MarkDestroyed();
+            Debug.Log($"Destroyed {t}");
+        }
+    }
+    public void UpdateColor(int index)
+    {
+        Debug.Log($"Updating {this} with index {index}");
+        foreach(Tile t in Tiles.AllItems)
+        {
+            GameObject go = t.gameObject;
+            int x = (int)go.transform.position.x, z = (int)go.transform.position.y;
+            int ind2 = x % 2 == z % 2 ? 0 : 1;
+            go.GetComponent<MeshRenderer>().material.color = Utils.DebugColors[index][ind2];
         }
     }
 }
